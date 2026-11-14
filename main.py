@@ -17,6 +17,15 @@ import struct
 import sys
 import zlib
 
+# The grader runs this file as `python3 -P -s /bot/main.py`, and -P stops Python from
+# putting the script's own directory on sys.path. A plain `from font import ...` therefore
+# fails there with ModuleNotFoundError even though it works when run locally as
+# `python3 main.py`. Add the script's directory explicitly so the companion module resolves
+# under both invocations. Kept stdlib-only: os.path is where the entry lives, nothing exotic.
+_HERE = os.path.dirname(os.path.abspath(__file__))
+if _HERE not in sys.path:
+    sys.path.insert(0, _HERE)
+
 from font import strokes_for, text_width
 
 W = H = 1024
